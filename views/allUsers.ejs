@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Table</title>
+  <link rel="stylesheet" href="/allUsers.css">
+</head>
+<body>
+  <h2>Users Admin Table</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ref Number</th>
+        <th>Email</th>
+        <th>VIP/Standard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.number %></td>
+          <td><%= user.email %></td>
+          <td><%= user.vip ? 'VIP' : 'Standard' %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

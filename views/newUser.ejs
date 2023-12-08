@@ -1,10 +1,15 @@
 
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New User</title>
+  <link rel="stylesheet" href="/style.css">
+
 </head>
 <body>
-  <h2>New User</h2>
+     <h2>Welcome, <%= user.username %>!</h2>
+      <a href="/logout">Logout</a>
   <form method="post" action="/submit">
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" required>
@@ -13,9 +18,9 @@
       <input type="text" id="name" name="number" required>
       <br>
       <label for="vip">Vip</label>
-    <input type="radio" id="vip" name="vip" value="vip" required>
+    <input type="radio" id="vip" name="vip" value="vip">
     <label for="standard">Standard</label>
-    <input type="radio" id="standard" name="standard" value="standard" required>
+    <input type="radio" id="standard" name="standard" value="standard">
     <button type="submit">Submit</button>
   </form>
 </body>
