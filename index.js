@@ -108,13 +108,19 @@ app.get('/addAdminUser', async (req, res) => {
 });
 
 app.get('/newUser', isAuthenticated, (req, res) => {
-  res.render('newUser');
+  const user =  req.user;
+  res.render('newUser', {user});
 });
 
 app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/adminSignIn');
+  });
 });
+
 
 
 // ... (previous code)
