@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Table</title>
-  <link rel="stylesheet" href="/allUsers.css">
+  
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Admin Table</title>
+ <link rel="stylesheet" href="/allUsers.css">
 </head>
 <body>
   <h2>Users Admin Table</h2>
@@ -15,6 +15,7 @@
         <th>Ref Number</th>
         <th>Email</th>
         <th>VIP/Standard</th>
+        <th>Actions</th> <!-- New column for edit and delete buttons -->
       </tr>
     </thead>
     <tbody>
@@ -23,9 +24,50 @@
           <td><%= user.number %></td>
           <td><%= user.email %></td>
           <td><%= user.vip ? 'VIP' : 'Standard' %></td>
+          <td>
+            <!-- Edit button -->
+            <button class="edit-btn" onclick="editUser('<%= user._id %>')">Edit</button>
+            <!-- Delete button -->
+            <button class="delete-btn" onclick="deleteUser('<%= user._id %>')">Delete</button>
+          </td>
         </tr>
       <% }); %>
     </tbody>
   </table>
+  <button class="edit-btn" onclick="addNewUser()">Add new user</button>
+
+  <script>
+    function addNewUser(){
+      window.location.href = '/newUser';
+    }
+    // JavaScript functions to handle edit and delete actions
+    function editUser(userId) {
+  // Redirect to the editUser route for the given user ID
+  window.location.href = `/editUser/${userId}`;
+}
+
+    async function deleteUser(userId) {
+      // Implement logic to delete the user
+      try {
+        const response = await fetch(`/deleteUser/${userId}`, {
+          method: 'DELETE',
+        });
+
+        const result = await response.json();
+
+        // Implement logic to handle the result
+        if (result.success) {
+          // Refresh the page or update the UI as needed
+          console.log('User deleted successfully');
+          location.reload();
+        } else {
+          console.error('Error deleting user:', result.error);
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
+
+  </script>
 </body>
 </html>

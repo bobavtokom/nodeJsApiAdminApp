@@ -7,6 +7,11 @@ body {
   h2 {
     color: #333;
   }
+  .edit-btn, .delete-btn {
+    cursor: pointer;
+    color: blue;
+    margin-right: 10px;
+  }
   
   table {
     width: 100%;
