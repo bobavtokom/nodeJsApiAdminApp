@@ -1,3 +1,4 @@
+
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -8,14 +9,12 @@ const bcrypt = require('bcrypt');
 const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3000;
-const admin = require('firebase-admin');
 
-const serviceAccount = require('path/to/your/firebase-service-account-key.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  // Add other configuration options if needed
-});
+
+
+
+
 mongoose.connect('mongodb://localhost:27017/adminUsersPanel', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const User = mongoose.model('User', new mongoose.Schema({
@@ -28,7 +27,7 @@ const dbName = 'adminUsersPanel'; // Replace with your database name
 
 async function connectToDatabase() {
   const client = new MongoClient(mongoUri);
-
+  
   try {
     await client.connect();
     console.log('Connected to the database');
@@ -39,20 +38,20 @@ async function connectToDatabase() {
   }
 }
 
-
+app.use(express.json());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 passport.use(new LocalStrategy(async (username, password, done) => {
   try {
     const user = await User.findOne({ username });
-
+    
     if (!user) {
       return done(null, false, { message: 'Incorrect username.' });
     }
-
+    
     const passwordMatch = await bcrypt.compare(password, user.password);
-
+    
     if (passwordMatch) {
       return done(null, user);
     } else {
@@ -62,6 +61,8 @@ passport.use(new LocalStrategy(async (username, password, done) => {
     return done(error);
   }
 }));
+
+
 
 
 passport.serializeUser((user, done) => {
