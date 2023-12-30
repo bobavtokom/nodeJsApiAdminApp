@@ -118,10 +118,12 @@ app.post('/adminSignIn', passport.authenticate('local', {
   successRedirect: '/newUser',
   failureRedirect: '/adminSignIn',
 }));
-
-app.get('/addAdminUser', async (req, res) => {
-  const username = 'admin';
-  const password = 'adminpassword';
+app.get('/addAdmin',(req,res)=>{
+  res.render('addAdmin');
+})
+app.post('/addAdminUser', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
